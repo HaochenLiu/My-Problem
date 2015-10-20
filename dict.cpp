@@ -33,63 +33,70 @@ class dict;
 class dict {
 private:
     unordered_set<string> words;
+    bool isCompoundRecur(string str, int start);
+    bool isCompoundRecur2(string str, int start, unordered_set<string>& s);
 
 public:
-    dict(vector<string> v) {
-        int n = v.size();
-        for(int i = 0; i < n; i++) {
-            words.insert(v[i]);
-        }
-    }
-  
-    bool Exists(string str) {
-        return (words.find(str) != words.end());
-    }
-  
-    bool isCompound(string str) {
-        if(str.empty()) return false;
-        return isCompoundRecur(str, 0);
-    }
-
-    bool isCompoundRecur(string str, int start) {
-        int n = str.size();
-        if(start == n) return true;
-        for(int i = start; i < n; i++) {
-            string t = str.substr(start, i - start + 1);
-            if(words.find(t) != words.end()) {
-                if(isCompoundRecur(str, i + 1)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-  
-    /*
-    once
-    */
-    bool isCompound2(string str) {
-        if(str.empty()) return false;
-        unordered_set<string> used;
-        return isCompoundRecur2(str, 0, used);
-    }
-  
-    bool isCompoundRecur2(string str, int start, unordered_set<string>& s) {
-        int n = str.size();
-        if(start == n) return true;
-        for(int i = start; i < n; i++) {
-            string t = str.substr(start, i - start + 1);
-            if(words.find(t) != words.end() && s.find(t) == s.end()) {
-                s.insert(t);
-                if(isCompoundRecur2(str, i + 1, s)) {
-                    return true;
-                }
-                s.erase(t);
-            }
-        }
-        return false;
-    }  
+    dict(vector<string> v);
+    bool Exists(string str);
+    bool isCompound(string str);
+    bool isCompound2(string str);
 };
+    
+dict::dict(vector<string> v) {
+    int n = v.size();
+    for(int i = 0; i < n; i++) {
+        words.insert(v[i]);
+    }
+}
+
+bool dict::Exists(string str) {
+    return (words.find(str) != words.end());
+}
+
+bool dict::isCompound(string str) {
+    if(str.empty()) return false;
+    return isCompoundRecur(str, 0);
+}
+
+bool dict::isCompoundRecur(string str, int start) {
+    int n = str.size();
+    if(start == n) return true;
+    for(int i = start; i < n; i++) {
+        string t = str.substr(start, i - start + 1);
+        if(words.find(t) != words.end()) {
+            if(isCompoundRecur(str, i + 1)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+  
+/*
+once
+*/
+bool dict::isCompound2(string str) {
+    if(str.empty()) return false;
+    unordered_set<string> used;
+    return isCompoundRecur2(str, 0, used);
+}
+      
+bool dict::isCompoundRecur2(string str, int start, unordered_set<string>& s) {
+    int n = str.size();
+    if(start == n) return true;
+    for(int i = start; i < n; i++) {
+        string t = str.substr(start, i - start + 1);
+        if(words.find(t) != words.end() && s.find(t) == s.end()) {
+            s.insert(t);
+            if(isCompoundRecur2(str, i + 1, s)) {
+                return true;
+            }
+            s.erase(t);
+        }
+    }
+    return false;
+}  
 
 int main() {
     vector<string> v;
