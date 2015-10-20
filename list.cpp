@@ -35,6 +35,7 @@ public:
     ListNode* head;
     List(int v = 0);
     List(vector<int> v);
+    void reverse();
     void print();
 };
 
@@ -50,15 +51,11 @@ List::List(int v) {
 }
 
 List::List(vector<int> v) {
+    if(v.empty()) {
+        head = NULL;
+        return;
+    }
     int n = v.size();
-    if(n == 0) {
-        cout<<"Empty vector"<<endl;
-        return;
-    }
-    if(n == 1) {
-        head = new ListNode(v[0]);
-        return;
-    }
     vector<ListNode*> l(n, NULL);
     for(int i = 0; i < n; i++) {
         l[i] = new ListNode();
@@ -78,6 +75,23 @@ void List::print() {
         node = node->next;
     }
     cout<<endl;
+}
+
+void List::reverse() {
+    if(head == NULL || head->next == NULL) return;
+    ListNode dummy(0);
+    dummy.next = head;
+    ListNode* ins = &dummy;
+    ListNode* cur = ins->next;
+    while(cur->next) {
+        ListNode* move = cur->next;
+        cur->next = move->next;
+        move->next = ins->next;
+        ins->next = move;
+    }
+    head = dummy.next;
+
+    return;
 }
 
 ListNode::ListNode(int v) {
@@ -101,6 +115,7 @@ void ListNodeTest() {
     v.push_back(4);
     v.push_back(5);
     List l(v);
+    l.reverse();
     l.print();
 }
 
