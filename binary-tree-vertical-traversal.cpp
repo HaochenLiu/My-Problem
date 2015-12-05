@@ -59,10 +59,13 @@ vector<vector<int>> Tree::verTraversal() {
     if(root == NULL) return res;
     unordered_map<TreeNode*, int> idxm;
     idxm[root] = 0;
-    map<int, vector<int>> m;
+    unordered_map<int, vector<int>> m;
+    int minVal = 0;
+    int maxVal = 0;
     queue<TreeNode*> cur; 
     queue<TreeNode*> next;
     cur.push(root);
+
     while(!cur.empty()) {
         while(!cur.empty()) {
             TreeNode* node = cur.front();
@@ -71,18 +74,20 @@ vector<vector<int>> Tree::verTraversal() {
             m[idx].push_back(node->val);
             if(node->left) {
                 idxm[node->left] = idx - 1;
+                minVal = min(minVal, idx - 1);
                 next.push(node->left);
             }
             if(node->right) {
                 idxm[node->right] = idx + 1;
+                maxVal = max(maxVal, idx + 1);
                 next.push(node->right);
             }
         }
         swap(cur, next);
     }
         
-    for(auto it = m.begin(); it != m.end(); it++) {
-        res.push_back(it->second);
+    for(int i = minVal; i <= maxVal; i++) {
+        res.push_back(m[i]);
     }
 
     return res;
