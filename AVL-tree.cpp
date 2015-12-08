@@ -1,5 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include<iostream>
+
+using namespace std;
 
 // An AVL tree node
 class AVLTreeNode {
@@ -162,7 +163,7 @@ AVLTreeNode* deleteNode(AVLTreeNode* root, int val) {
                 // One child case
                 *root = *temp; // Copy the contents of the non-empty child
             }
-            free(temp);
+            delete(temp);
         } else {
             // node with two children: Get the inorder successor (smallest
             // in the right subtree)
@@ -217,7 +218,7 @@ AVLTreeNode* deleteNode(AVLTreeNode* root, int val) {
 // The function also prints height of every node
 void preOrder(AVLTreeNode*root) {
     if(root != NULL) {
-        printf("%d ", root->val);
+        cout<<root->val<<" ";
         preOrder(root->left);
         preOrder(root->right);
     }
@@ -239,31 +240,31 @@ int main() {
     root = insert(root, 2);
 
     /* The constructed AVL Tree would be
-            9
-        / \
-        1 10
-        / \     \
-    0 5     11
-    / / \
-    -1 2 6
+                 9
+                / \
+               1  10
+              / \  \
+             0  5  11
+            /  / \
+          -1  2  6
     */
 
-    printf("Pre order traversal of the constructed AVL tree is \n");
+    cout<<"Pre order traversal of the constructed AVL tree is "<<endl;
     preOrder(root);
 
     root = deleteNode(root, 10);
 
     /* The AVL Tree after deletion of 10
-            1
-        / \
-        0 9
-        /     / \
-    -1 5     11
-        / \
-        2 6
+                 1
+                / \
+               0  9
+              /  / \
+            -1  5  11
+               / \
+              2  6
     */
 
-    printf("\nPre order traversal after deletion of 10 \n");
+    cout<<"\nPre order traversal after deletion of 10 "<<endl;
     preOrder(root);
 
     return 0;
