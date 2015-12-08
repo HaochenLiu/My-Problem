@@ -243,10 +243,10 @@ int main() {
                  9
                 / \
                1  10
-              / \  \
-             0  5  11
-            /  / \
-          -1  2  6
+              / \   \
+             0   5  11
+            /   / \
+          -1   2   6
     */
 
     cout<<"Pre order traversal of the constructed AVL tree is "<<endl;
@@ -257,11 +257,11 @@ int main() {
     /* The AVL Tree after deletion of 10
                  1
                 / \
-               0  9
-              /  / \
-            -1  5  11
-               / \
-              2  6
+               0   9
+              /   / \
+            -1   5  11
+                / \
+               2   6
     */
 
     cout<<"\nPre order traversal after deletion of 10 "<<endl;
