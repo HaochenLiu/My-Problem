@@ -228,7 +228,7 @@ void preOrder(AVLTreeNode*root) {
 int main() {
     AVLTreeNode*root = NULL;
 
-/* Constructing tree given in the above figure */
+    /* Constructing tree given in the above figure */
     root = insert(root, 9);
     root = insert(root, 5);
     root = insert(root, 10);
