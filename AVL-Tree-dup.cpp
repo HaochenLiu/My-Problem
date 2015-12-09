@@ -37,8 +37,7 @@ int max(int a, int b) {
 
 // A utility function to right rotate subtree rooted with y
 // See the diagram given above.
-AVLTreeNode* rightRotate(AVLTreeNode* y)
-{
+AVLTreeNode* rightRotate(AVLTreeNode* y) {
     AVLTreeNode* x = y->left;
     AVLTreeNode* T2 = x->right;
 
@@ -47,8 +46,8 @@ AVLTreeNode* rightRotate(AVLTreeNode* y)
     y->left = T2;
 
     // Update heights
-    y->height = max(height(y->left), height(y->right))+1;
-    x->height = max(height(x->left), height(x->right))+1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
 
     // Return new root
     return x;
@@ -56,8 +55,7 @@ AVLTreeNode* rightRotate(AVLTreeNode* y)
 
 // A utility function to left rotate subtree rooted with x
 // See the diagram given above.
-AVLTreeNode* leftRotate(AVLTreeNode* x)
-{
+AVLTreeNode* leftRotate(AVLTreeNode* x) {
     AVLTreeNode* y = x->right;
     AVLTreeNode* T2 = y->left;
 
@@ -181,7 +179,7 @@ AVLTreeNode* deleteNode(AVLTreeNode* root, int val) {
                 *root = *temp; // Copy the contents of the non-empty child
             }
 
-            free(temp);
+            delete(temp);
         } else {
             // node with two children: Get the inorder successor (smallest
             // in the right subtree)
